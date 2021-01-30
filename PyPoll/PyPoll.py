@@ -11,6 +11,8 @@ output_budget_analysis ="C:\\Users\\morga\\Repositories\\PythonProject\\PyPoll\\
 vote_count = 0
 candidatevotes = {}
 candidatelist = []
+candidatewin = ""
+winningballots = 0
 
 
 #CSV Reading...
@@ -25,6 +27,8 @@ with open(import_election_data) as election_data:
     
     #Looping through the rows
     for rows in read_csv:
+         
+        vote_count = vote_count + 1
 
         #defining the candidate names
         candidatenames = rows[2]
@@ -54,7 +58,42 @@ with open(output_budget_analysis, 'w') as txt_file:
     )
     print(electionresults)
 
-    txt_file.write(electionresults)
+    #Hopefully adding this to the .txt
+    #txt_file.write(electionresults)
+
+    for runner in candidatevotes:
+        votes = candidatevotes.get(runner)
+        percentage = float(votes) / float(vote_count) * 100
+        #Test Line
+        #print(percentage)
+
+        #Have to find winner, which means new variables at the top
+        if (votes > winningballots):
+            winningballots = votes
+            candidatewin = runner
+
+        #Print the lines
+        totals = f"{runner}: {percentage}% ({votes})\n"
+        print(totals, end="")
+
+        #place on csv
+        txt_file.write(totals)
+
+    #So who won? Printing result!
+    who_won = (
+        f"Winner: {candidatewin}\n"
+    )
+    print(who_won)
+
+    #saving it to CSV (with any luck)
+    txt_file.write(who_won)
+    
+
+
+
+
+
+
 
             
         
