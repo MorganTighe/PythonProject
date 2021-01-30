@@ -9,7 +9,8 @@ output_budget_analysis ="C:\\Users\\morga\\Repositories\\PythonProject\\PyPoll\\
 
 #Counting Votes and defining variables
 vote_count = 0
-
+candidatevotes = {}
+candidatelist = []
 
 
 #CSV Reading...
@@ -19,9 +20,35 @@ with open(import_election_data) as election_data:
     #Header Row
     header = next(read_csv)
 
+    #Vote Count Ticker
     vote_count = vote_count = 1
+    
+    #Trial Print
+    #print(vote_count)
 
-    print(vote_count)
+    #Looping through the rows
+    for rows in read_csv:
+
+        #defining the candidate names
+        candidatenames = rows[2]
+         
+        #In need of another loop - this will find candidates names
+        if candidatenames not in candidatelist:
+            candidatelist.append(candidatenames)
+
+            #Let's count some votes per candidate
+            candidatevotes[candidatenames] = 0
+            candidatevotes[candidatenames] = candidatevotes[candidatenames] + 1
+
+            #Testing...
+            print(candidatenames)
+            print(candidatevotes)
+
+            
+        
+
+
+
 
 
 
