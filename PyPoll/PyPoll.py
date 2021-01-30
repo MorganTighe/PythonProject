@@ -46,7 +46,15 @@ with open(import_election_data) as election_data:
 with open(output_budget_analysis, 'w') as txt_file:
 
     #Printing Results
-    
+    electionresults = (
+        f"\n\nElectionResults\n"
+        f"--------------------\n"
+        f"Total Votes: {vote_count}\n"
+        f"--------------------\n"
+    )
+    print(electionresults)
+
+    txt_file.write(electionresults)
 
             
         

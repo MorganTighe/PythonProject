@@ -13,8 +13,8 @@ greatest_increase = ["", 0]
 greatest_decrease = ["", 9999999999]
 total_months = 0
 month_changing = []
-total_months = 0
-total_net_change = []
+
+#total_net_change = []
 net_total = 0
 net_change_tally = []
 
@@ -36,29 +36,23 @@ with open(import_budget_data) as budget_data:
         total_months += 1
         net_total += int(rows[1])
 
-        start_net = int(rows[1])
-        #total_net_change =  int(rows[1]) - previous_net
-        net_change_tally += [net_total]
-        month_changing += [rows[0]]  
-
-        #finding the change in net
-        start_net = int(rows[1])
-        net_change = int(rows[1]) - start_net
-        total_net_change += [net_change]
-        net_change_tally += [net_change]
+        total_net_change =  int(rows[1]) - previous_net
+        previous_net = int(rows[1])
+        net_change_tally += [total_net_change]
+        month_changing += [rows[0]]
 
         #finding greatest increase
-        if net_change > greatest_increase[1]:
+        if total_net_change > greatest_increase[1]:
             greatest_increase[0]
-            greatest_increase[1] = net_change
+            greatest_increase[1] = total_net_change
 
         #finding greatest decrease
-        if net_change < greatest_decrease[1]:
+        if total_net_change < greatest_decrease[1]:
             greatest_decrease = rows[0]
-            greatest_decrease[1] = net_change
+            greatest_decrease[1] = total_net_change
 
     #Finding Average Change to complete loop
-    net_average = sum(total_net_change) / len(total_net_change)
+    net_average = sum(net_change_tally) / len(net_change_tally)
 
 
 summary = (
