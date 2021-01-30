@@ -16,6 +16,7 @@ month_changing = []
 total_months = 0
 total_net_change = []
 net_total = 0
+net_change_tally = []
 
 #reading in the header, placing it outside loop
 with open(import_budget_data) as budget_data:
@@ -27,20 +28,24 @@ with open(import_budget_data) as budget_data:
     total_months += 1
     net_total += int(initial_row[1])
     previous_net = int(initial_row[1])
+    
 
     for rows in read_csv:
         
         #defining variables and calculating totals
-        start_net = int(rows[1])
-        net_total += int(rows[1])
         total_months += 1
-        total_net_change += 1
+        net_total += int(rows[1])
+
+        start_net = int(rows[1])
+        #total_net_change =  int(rows[1]) - previous_net
+        net_change_tally += [net_total]
         month_changing += [rows[0]]  
 
         #finding the change in net
         start_net = int(rows[1])
         net_change = int(rows[1]) - start_net
         total_net_change += [net_change]
+        net_change_tally += [net_change]
 
         #finding greatest increase
         if net_change > greatest_increase[1]:
@@ -52,11 +57,16 @@ with open(import_budget_data) as budget_data:
             greatest_decrease = rows[0]
             greatest_decrease[1] = net_change
 
+    #Finding Average Change to complete loop
+    net_average = sum(total_net_change) / len(total_net_change)
+
+
 summary = (
     f"Financial Analysis\n"
     f"-------------------\n"
     f"Total Months: {total_months}\n"
     f"Total: ${total_net_change}\n"
+    f"Average  Change: ${net_average:.2f}\n"
     f"Greatest Increase in Profits: {greatest_increase[0]} (${greatest_increase[1]})\n"
     f"Greatest Decrease in Profits: {greatest_decrease[0]} (${greatest_decrease[1]})\n")
 

@@ -17,15 +17,12 @@ candidatelist = []
 with open(import_election_data) as election_data:
     read_csv = csv.reader(election_data)
 
+    #Vote Count Ticker
+    vote_count = vote_count + 1
+
     #Header Row
     header = next(read_csv)
-
-    #Vote Count Ticker
-    vote_count = vote_count = 1
     
-    #Trial Print
-    #print(vote_count)
-
     #Looping through the rows
     for rows in read_csv:
 
@@ -38,11 +35,18 @@ with open(import_election_data) as election_data:
 
             #Let's count some votes per candidate
             candidatevotes[candidatenames] = 0
-            candidatevotes[candidatenames] = candidatevotes[candidatenames] + 1
+        
+        candidatevotes[candidatenames] = candidatevotes[candidatenames] + 1
 
-            #Testing...
-            print(candidatenames)
-            print(candidatevotes)
+        #Testing... It works!
+        #print(candidatenames)
+        #print(candidatevotes)
+
+#Need to print a .txt - here we go
+with open(output_budget_analysis, 'w') as txt_file:
+
+    #Printing Results
+    
 
             
         
